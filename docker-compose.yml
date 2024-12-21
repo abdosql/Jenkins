@@ -23,7 +23,7 @@ services:
       dockerfile: ./docker/php/Dockerfile
     container_name: symfony_php
     volumes:
-      - .:/var/www/symfony
+      - ./symfony:/var/www/symfony
     working_dir: /var/www/symfony
     depends_on:
       - db
@@ -38,7 +38,7 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - .:/var/www/symfony
+      - ./symfony:/var/www/symfony
     depends_on:
       - php
     networks:

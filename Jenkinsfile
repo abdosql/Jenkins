@@ -12,6 +12,8 @@ pipeline {
         stage('Setup Symfony') {
             steps {
                 sh '''
+                    mkdir -p symfony
+                    cd symfony
                     if [ ! -f "composer.json" ]; then
                         composer create-project symfony/skeleton:"6.3.*" . --no-interaction
                     fi
@@ -21,14 +23,18 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'composer install --no-interaction --optimize-autoloader'
+                dir('symfony') {
+                    sh 'composer install --no-interaction --optimize-autoloader'
+                }
             }
         }
 
         stage('Run Tests') {
             steps {
-                // Adjust your test command if you're using PhpUnit or another test suite
-                sh 'php bin/phpunit || echo "No tests to run"'
+                dir('symfony') {
+                    // Adjust your test command if you're using PhpUnit or another test suite
+                    sh 'php bin/phpunit || echo "No tests to run"'
+                }
             }
         }
 
