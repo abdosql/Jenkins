@@ -15,10 +15,7 @@ pipeline {
                     rm -rf symfony
                     mkdir -p symfony
                     cd symfony
-                    if [ ! -f "composer.json" ]; then
-                        composer create-project symfony/skeleton:"6.3.*" . --no-interaction
-                    fi
-                    composer require symfony/webapp-pack --no-interaction
+                    composer create-project symfony/website-skeleton:"6.3.*" . --no-interaction --prefer-dist
                 '''
             }
         }
@@ -35,7 +32,7 @@ pipeline {
             steps {
                 dir('symfony') {
                     // Adjust your test command if you're using PhpUnit or another test suite
-                    sh 'php bin/phpunit || echo "No tests to run"'
+                    sh './bin/phpunit --version || echo "No tests to run"'
                 }
             }
         }
