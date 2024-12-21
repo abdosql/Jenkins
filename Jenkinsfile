@@ -16,7 +16,9 @@ pipeline {
                     curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | sudo -E bash
                     sudo apt install symfony-cli
                     
-                    # Create new Symfony project using CLI
+                    # Remove existing symfony directory and create new project
+                    rm -rf symfony
+                    mkdir symfony
                     cd symfony
                     symfony new . --no-git
                     
