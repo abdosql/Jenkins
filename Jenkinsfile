@@ -15,7 +15,10 @@ pipeline {
                     rm -rf symfony
                     mkdir -p symfony
                     cd symfony
-                    composer create-project symfony/website-skeleton:"6.3.*" . --no-interaction --prefer-dist
+                    composer create-project symfony/skeleton:"6.3.*" . --no-interaction --prefer-dist
+                    composer require webapp
+                    composer require --dev symfony/test-pack
+                    composer require symfony/runtime
                 '''
             }
         }
