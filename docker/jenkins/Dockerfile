@@ -12,9 +12,12 @@ RUN apt-get update && \
     lsb-release \
     php \
     php-cli \
+    php-xml \
     php-zip \
     php-json \
     php-curl \
+    php-mbstring \
+    php-intl \
     unzip
 
 # Install Composer

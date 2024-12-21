@@ -12,11 +12,13 @@ pipeline {
         stage('Setup Symfony') {
             steps {
                 sh '''
+                    rm -rf symfony
                     mkdir -p symfony
                     cd symfony
                     if [ ! -f "composer.json" ]; then
                         composer create-project symfony/skeleton:"6.3.*" . --no-interaction
                     fi
+                    composer require symfony/webapp-pack --no-interaction
                 '''
             }
         }
