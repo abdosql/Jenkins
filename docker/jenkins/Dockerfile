@@ -18,6 +18,10 @@ RUN apt-get update && \
     php-curl \
     php-mbstring \
     php-intl \
+    php-pdo \
+    php-mysql \
+    php-tokenizer \
+    php-xmlwriter \
     unzip
 
 # Install Composer
