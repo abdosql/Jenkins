@@ -12,46 +12,46 @@ pipeline {
         stage('Setup Symfony') {
             steps {
                 sh '''
-                    rm -rf symfony
-                    mkdir -p symfony
+                    # Install Symfony CLI
+                    curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | sudo -E bash
+                    sudo apt install symfony-cli
+                    
+                    # Create new Symfony project using CLI
                     cd symfony
-                    composer create-project symfony/skeleton:"6.3.*" . --no-interaction --prefer-dist
-                    composer require symfony/webapp-pack:* --no-interaction
-                    composer require symfony/runtime:* --no-interaction
-                    composer require --dev symfony/test-pack:* --no-interaction
-                    composer require doctrine/annotations:* --no-interaction
+                    symfony new . --no-git
+                    
+                    # Install additional packages
+                    composer require webapp
+                    composer require symfony/test-pack --dev
+                    composer require doctrine/annotations
                 '''
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Build') {
             steps {
-                dir('symfony') {
-                    sh 'composer install --no-interaction --optimize-autoloader'
-                }
+                sh '''
+                    cd symfony
+                    composer install
+                '''
             }
         }
 
-        stage('Run Tests') {
+        stage('Test') {
             steps {
-                dir('symfony') {
-                    // Adjust your test command if you're using PhpUnit or another test suite
-                    sh './bin/phpunit --version || echo "No tests to run"'
-                }
-            }
-        }
-
-        stage('Build Docker Images') {
-            steps {
-                // Build images as defined in your docker-compose file
-                sh 'docker-compose build'
+                sh '''
+                    cd symfony
+                    php bin/phpunit
+                '''
             }
         }
 
         stage('Deploy') {
             steps {
-                // Run containers in detached mode
-                sh 'docker-compose up -d'
+                sh '''
+                    cd symfony
+                    symfony server:start -d
+                '''
             }
         }
     }
