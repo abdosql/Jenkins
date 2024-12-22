@@ -75,3 +75,32 @@ J'ai configuré un pipeline Jenkins qui exécute automatiquement les étapes sui
 - Automatisation complète du processus de déploiement
 - Environnement de développement standardisé
 - Tests automatisés intégrés au processus
+
+## 🆕 Dernières Mises à Jour (22/12/2024)
+
+### 1. Image Docker Unifiée
+- Création d'une image Docker unique combinant Jenkins et Symfony
+- Image disponible sur Docker Hub : `seqqal/jenkins-symfony:latest`
+- Simplification du déploiement avec une configuration tout-en-un
+
+### 2. Améliorations de l'Environnement
+- Installation de PHP 8.2 avec toutes les extensions nécessaires
+- Configuration automatique de Composer et Symfony CLI
+- Permissions optimisées pour l'utilisateur Jenkins
+
+### 3. Utilisation Simplifiée
+Pour utiliser cette configuration :
+```bash
+# Télécharger l'image
+docker pull seqqal/jenkins-symfony:latest
+
+# Démarrer avec docker-compose
+docker-compose up -d
+```
+
+### 4. Fonctionnalités Incluses dans l'Image
+- Jenkins LTS préconfiguré
+- PHP 8.2 avec extensions (cli, fpm, mysql, zip, gd, mbstring, curl, xml, bcmath)
+- Composer pour la gestion des dépendances
+- Symfony CLI pour le développement
+- Structure de répertoires préparée pour les projets Symfony
